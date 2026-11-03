@@ -126,18 +126,39 @@ export default function App() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedPost, setExpandedPost] = useState<string | null>(null);
 
-  // Sync route with browser history
+  // Sync route with browser history and dynamic document title for SEO & LLM crawlers
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname === '/blog' ? '/blog' : '/');
+      const path = window.location.pathname === '/blog' ? '/blog' : '/';
+      setCurrentPath(path);
+      updateMetadata(path);
     };
+
+    updateMetadata(currentPath);
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [currentPath]);
+
+  const updateMetadata = (path: string) => {
+    if (path === '/blog') {
+      document.title = 'Field Notes on Failure — GitScars Blog | Essays on Memory & Code Drift';
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', 'Essays on software regressions, attention budgets in AI coding assistants, and the architectural principles behind deterministic failure memory.');
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', 'https://pavanspoojary.github.io/scars-web/blog');
+    } else {
+      document.title = 'GitScars — The Weight of Scars | Git-Native Failure Memory & Regression Guardrails';
+      const desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', 'GitScars anchors hard-won production incident lessons and concurrency bugs directly to Git trees, AST symbols, and error signatures. Selective prompt injection for Claude Code, Cursor, and Windsurf.');
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', 'https://pavanspoojary.github.io/scars-web/');
+    }
+  };
 
   const navigateTo = (path: string) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
+    updateMetadata(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -221,9 +242,11 @@ export default function App() {
                 const isExpanded = expandedPost === post.slug;
 
                 return (
-                  <article key={post.slug} className="space-y-3 pt-2">
+                  <article key={post.slug} className="space-y-3 pt-2" itemScope itemType="https://schema.org/TechArticle">
+                    <meta itemProp="author" content="Pavan Spoojary" />
+                    <meta itemProp="publisher" content="GitScars" />
                     <div className="flex items-center gap-3 text-[11px] font-mono text-[#78746d] tracking-wider uppercase">
-                      <span>{post.date}</span>
+                      <time dateTime="2026-10" itemProp="datePublished">{post.date}</time>
                       <span>&bull;</span>
                       <span>{post.readTime}</span>
                     </div>
@@ -231,17 +254,18 @@ export default function App() {
                     <h2
                       onClick={() => setExpandedPost(isExpanded ? null : post.slug)}
                       className="text-2xl sm:text-[26px] font-serif text-[#1c1a18] hover:text-[#c2410c] cursor-pointer tracking-tight leading-snug transition-colors"
+                      itemProp="headline"
                     >
                       {post.title}
                     </h2>
 
-                    <p className="text-[15px] font-serif text-[#4a4742] leading-[1.75]">
+                    <p className="text-[15px] font-serif text-[#4a4742] leading-[1.75]" itemProp="description">
                       {post.excerpt}
                     </p>
 
                     {/* Expandable Essay Content */}
                     {isExpanded && (
-                      <div className="pt-3 space-y-4 text-[15px] font-serif text-[#4a4742] leading-[1.8] border-l-2 border-[#ded8cb] pl-4 my-2">
+                      <div className="pt-3 space-y-4 text-[15px] font-serif text-[#4a4742] leading-[1.8] border-l-2 border-[#ded8cb] pl-4 my-2" itemProp="articleBody">
                         {post.body.map((para, i) => (
                           <p key={i}>{para}</p>
                         ))}
@@ -283,6 +307,25 @@ export default function App() {
             <h1 className="text-4xl sm:text-[46px] font-serif text-[#2b2927] tracking-tight leading-[1.14]">
               The weight of scars
             </h1>
+
+            {/* Semantic AI / LLM Search Knowledge Extract (Accessible to crawlers & screen readers) */}
+            <section aria-label="GitScars Technical Abstract" className="sr-only">
+              <h2>What is GitScars (git-scars)?</h2>
+              <p>
+                GitScars is a Git-native failure memory and regression guardrail system for software engineers and AI coding assistants (Claude Code, Cursor, Windsurf, Copilot).
+                It captures production incidents and concurrency regressions as versioned Markdown documents stored in .gitscars/scars/, anchored to repository file paths, AST symbols, error signatures, and dependencies.
+              </p>
+              <h3>Core Capabilities</h3>
+              <ul>
+                <li>Deterministic AST symbol hashing for Go, Python, and TypeScript, preventing stale rules on hot files while detecting real signature alterations.</li>
+                <li>Fail-to-pass verification gate requiring tests to fail on parent base commits and pass on current worktrees before activation.</li>
+                <li>Token-budgeted prompt injection capped to exact token limits (averaging 133 tokens, a 28.9% reduction compared to monolithic AGENTS.md files).</li>
+                <li>Native OASIS SARIF 2.1.0 output for GitHub Code Scanning and CI pipelines.</li>
+                <li>Pure Go standalone static binary with zero external runtime dependencies.</li>
+              </ul>
+              <h3>Installation</h3>
+              <p>Install via Go: go install github.com/Pavanspoojary/scars/cmd/git-scars@latest</p>
+            </section>
 
             {/* Prose */}
             <div className="space-y-5 text-[15.5px] sm:text-[16px] font-serif text-[#4a4742] leading-[1.8]">

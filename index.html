@@ -3,12 +3,153 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GitScars — The Weight of Scars</title>
-    <meta name="description" content="A Git-native failure memory and regression guardrail system for software engineers and AI coding assistants. Versioned, human-reviewable Markdown documents anchored directly to Git trees." />
+    
+    <!-- Primary Metadata -->
+    <title>GitScars — The Weight of Scars | Git-Native Failure Memory &amp; Regression Guardrails</title>
+    <meta name="title" content="GitScars — The Weight of Scars | Git-Native Failure Memory &amp; Regression Guardrails" />
+    <meta name="description" content="GitScars anchors hard-won production incident lessons and concurrency bugs directly to Git trees, AST symbols, and error signatures. Selective prompt injection for Claude Code, Cursor, and Windsurf." />
+    <meta name="author" content="Pavan Spoojary" />
+    <meta name="keywords" content="GitScars, git-scars, failure memory, regression guardrails, AI coding agents, Claude Code, Cursor rules, AST symbol hashing, fail-to-pass verification, code drift prevention, SARIF CI/CD, Go developer tools, prompt injection guardrails, LLM memory" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#f7f5ed" />
+    <link rel="canonical" href="https://pavanspoojary.github.io/scars-web/" />
+
+    <!-- LLM Documentation Discovery (llms.txt standard) -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Documentation" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pavanspoojary.github.io/scars-web/" />
+    <meta property="og:site_name" content="GitScars" />
+    <meta property="og:title" content="GitScars — The Weight of Scars" />
+    <meta property="og:description" content="A Git-native failure memory and regression guardrail system for software engineers and AI coding assistants. Versioned, human-reviewable Markdown documents anchored directly to Git trees." />
+    <meta property="og:image" content="https://pavanspoojary.github.io/scars-web/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="GitScars — The Weight of Scars editorial paper preview" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://pavanspoojary.github.io/scars-web/" />
+    <meta name="twitter:title" content="GitScars — The Weight of Scars" />
+    <meta name="twitter:description" content="Git-native failure memory and regression guardrails for engineers and AI coding assistants. Deterministic AST freshness, fail-to-pass proof, zero drift." />
+    <meta name="twitter:image" content="https://pavanspoojary.github.io/scars-web/og-image.svg" />
+    <meta name="twitter:creator" content="@pavanspoojary" />
+
+    <!-- Fonts & Favicon -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23383531' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z'/></svg>" />
+
+    <!-- Schema.org JSON-LD Structured Data for Search Engines & LLM Answer Engines -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://pavanspoojary.github.io/scars-web/#software",
+          "name": "GitScars",
+          "alternateName": "git-scars",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "macOS, Linux, Windows",
+          "programmingLanguage": "Go",
+          "license": "https://www.apache.org/licenses/LICENSE-2.0",
+          "codeRepository": "https://github.com/Pavanspoojary/scars",
+          "url": "https://pavanspoojary.github.io/scars-web/",
+          "description": "A Git-native failure memory and regression guardrail system for software engineers and AI coding assistants.",
+          "author": {
+            "@type": "Person",
+            "name": "Pavan Spoojary",
+            "url": "https://github.com/Pavanspoojary"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Deterministic AST symbol declaration hashing for Go, Python, and TypeScript",
+            "Fail-to-pass double-sided worktree verification gate",
+            "Token-budgeted agent prompt injection capped to exact token budgets",
+            "OASIS SARIF 2.1.0 native annotations for GitHub Code Scanning CI",
+            "Automated historical regression commit mining (git-scars harvest)",
+            "Real-time test failure interception and self-healing (git-scars heal)",
+            "Single standalone binary with zero external runtime dependencies"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://pavanspoojary.github.io/scars-web/#website",
+          "url": "https://pavanspoojary.github.io/scars-web/",
+          "name": "GitScars",
+          "description": "Official showcase website and documentation for the GitScars open-source project.",
+          "publisher": {
+            "@type": "Person",
+            "name": "Pavan Spoojary"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://pavanspoojary.github.io/scars-web/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://pavanspoojary.github.io/scars-web/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Field Notes & Blog",
+              "item": "https://pavanspoojary.github.io/scars-web/blog"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://pavanspoojary.github.io/scars-web/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is GitScars (git-scars)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GitScars is a Git-native failure memory and regression guardrail system for software engineers and AI coding assistants. It captures production incidents, concurrency traps, and breaking regressions as versioned, human-reviewable Markdown documents anchored directly to Git repository files, AST symbols, error signatures, and dependency manifests."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does GitScars compare to monolithic AGENTS.md or .cursor/rules?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Monolithic files suffer from prompt bloat (averaging 871 tokens) and 0% drift detection when files are renamed or moved. GitScars selectively injects multi-signal anchored guardrails capped to token budgets (averaging 133 tokens, a 28.9% reduction) and verifies code freshness with deterministic SHA-256 AST symbol hashing."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is fail-to-pass verification in GitScars?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fail-to-pass verification guarantees that failure memories are authentic. Before a scar becomes active, it executes a runnable test that passes on the current tree and conclusively reproduces a failure on the parent base commit, preventing unverified or misleading advice from polluting AI prompts."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which programming languages does GitScars support for AST freshness?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GitScars includes built-in syntactic AST symbol declaration parsers for Go (go/ast), Python (ast module), and TypeScript/JavaScript. It ignores whitespace, comments, and unrelated helper edits while catching real signature changes."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-[#f7f5ed] text-[#33312d] antialiased selection:bg-[#33312d]/10 selection:text-[#1a1917] min-h-screen">
     <div id="root"></div>

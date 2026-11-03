@@ -1,0 +1,90 @@
+# GitScars (`git-scars`)
+
+> A Git-native failure memory and regression guardrail system for software engineers and AI coding assistants.
+
+GitScars captures lessons learned from production incidents, subtle concurrency bugs, and breaking regressions as versioned, human-reviewable Markdown documents anchored directly to repository files, symbols, error signatures, and dependency versions.
+
+When developers edit code or coding agents (Claude Code, Cursor, Windsurf, Copilot) execute tasks, GitScars deterministically retrieves only the relevant failure memories before mistakes repeat.
+
+- Code Repository: https://github.com/Pavanspoojary/scars
+- Website: https://github.com/Pavanspoojary/scars-web
+- License: Apache 2.0
+- Runtime: Pure Go single static binary (Zero external dependencies)
+- Language Support: Native AST symbol parsers for Go (`go/ast`), Python (`ast`), and TypeScript/JavaScript.
+
+## The Core Problem
+
+Monolithic prompt rule files (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`) suffer from prompt bloat, attention dilution ("lost in the middle"), and 0% drift detection when files are refactored.
+Vector memory and semantic RAG introduce hallucinations, noisy false-positive retrieval, and vulnerability to indirect prompt injection.
+
+## How GitScars Works
+
+1. **Anchored Memory**: Scars bind to exact file paths, AST symbols, error signatures, and test commands.
+2. **Deterministic AST Freshness**: Computes SHA-256 digests over symbol AST declarations. Hot edits to comments or imports remain `current`; alterations to function signatures transition to `stale` (exit code 2 in CI).
+3. **Fail-to-Pass Verification**: A scar cannot become active without a runnable test verifier that passes on the current worktree and conclusively fails when detached onto the parent base commit.
+4. **Human Review Gate**: Scars are human-reviewed and promoted in Git pull requests (`git-scars promote`).
+5. **Token-Budgeted Prompt Injection**: Injects compact `<gitscars>` XML guardrails with structured `<dont>` and `<do>` instructions capped to exact token budgets (e.g. `--budget 300`).
+
+## Comparison Matrix
+
+- Monolithic (`AGENTS.md`): 871 avg tokens, unanchored, silent obsolescence on file move, unverified text assertions.
+- Glob-Scoped (`.cursor/rules`): 187 avg tokens, directory pattern only, 0% drift detection when files move.
+- Vector Memory (RAG): Dynamic tokens, semantic hallucinations, no execution proof, cloud DB dependency.
+- GitScars (`git-scars`): 133 avg tokens (-28.9% vs scoped), deterministic AST symbol hashing, scrubbed fail-to-pass test gate, pure Go single binary.
+
+## Key CLI Commands
+
+- `git-scars init`: Initializes `.gitscars/scars/` and local gitignored cache directories.
+- `git-scars add --title <str> --lesson <str> --files <path>`: Captures a new draft failure memory.
+- `git-scars add from-commit <hash>`: Auto-populates draft from a fix commit.
+- `git-scars verify <id>`: Runs double-sided fail-to-pass worktree verification.
+- `git-scars promote <id> --status active --reviewer <user>`: Human PR approval gate.
+- `git-scars recall --files <path>`: Retrieves relevant active scars for target files or diffs.
+- `git-scars inject --files <path> --budget <num>`: Emits token-budgeted prompt guardrails for LLMs.
+- `git-scars sync`: Synchronizes active scars into `AGENTS.md`, `CLAUDE.md`, `.cursorrules`.
+- `git-scars triage --error <str>`: Matches raw compiler errors, panic stack traces, and test crashes.
+- `git-scars heal -- <cmd>`: Surveillance runner intercepting test crashes and matching scars.
+- `git-scars check --format sarif`: CI gate checking AST freshness; emits OASIS SARIF 2.1.0 annotations.
+- `git-scars harvest --max 50 --min-confidence 7`: Mines Git history for past bug fixes with co-located tests.
+- `git-scars bundle export/import`: Shares curated sets of verified scars across teams without sharing Git histories.
+
+## Document Schema (`.gitscars/scars/<slug>-<shortid>.md`)
+
+```markdown
+---
+schema_version: "1"
+id: "map-write-crash-391945"
+slug: "concurrent-map-write-in-telemetry-exporter"
+title: "Concurrent map write in telemetry exporter"
+lesson: "Metrics map must be protected by sync.RWMutex during RecordMetric calls."
+severity: "high"
+fix_hint: "Wrap map mutations in mu.Lock() or replace with sync.Map"
+bad_pattern: "m[key] = val"
+good_pattern: "mu.Lock(); m[key] = val; mu.Unlock()"
+applicability: "Telemetry exporters handling concurrent metrics emissions."
+anchors:
+  files:
+    - "pkg/telemetry/exporter.go"
+  symbols:
+    - "RecordMetric"
+  commands:
+    - "go test -race ./pkg/telemetry/..."
+  error_signatures:
+    - "fatal error: concurrent map writes"
+verifier:
+  result: "fail_to_pass"
+  argv: ["go", "test", "-race", "./pkg/telemetry/..."]
+  command_hash: "2d4b1ee683d6be106b1633c27fedb692d3f757a5aa049397e28ef1cbd6d52736"
+review:
+  status: "approved"
+  reviewer: "alice"
+lifecycle:
+  state: "active"
+---
+```
+
+## Quick Installation
+
+```bash
+go install github.com/Pavanspoojary/scars/cmd/git-scars@latest
+```
