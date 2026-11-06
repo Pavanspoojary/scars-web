@@ -81,6 +81,32 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'prompt-budgets-scaling-agent-retrieval',
+    date: 'NOV 2026',
+    readTime: '5 MIN READ',
+    title: 'Prompt Budgets: Scaling Agent Retrieval from 871 to 133 Tokens',
+    excerpt: 'How multi-signal anchor scoring and hard token budget caps eliminate attention dilution in Claude Code, Cursor, and Windsurf.',
+    body: [
+      'Monolithic instruction files such as AGENTS.md or CLAUDE.md present a fundamental scaling problem: every rule must be loaded for every task. In monorepos, this dumps hundreds of unrelated concurrency, authentication, and database constraints into the initial context window.',
+      'Research shows that as prompt length grows, LLM attention is diluted—a phenomenon widely documented as "lost in the middle". An agent working on frontend UI components should never pay attention tokens for backend telemetry map synchronization.',
+      'GitScars introduces token-budgeted prompt injection (git-scars inject --files "path" --budget 300). By computing a composite score across file paths, AST symbols, test commands, and error signatures, it retrieves only the exact relevant guardrails capped strictly to the specified token ceiling.',
+      'In our modeled production benchmarks across 10 common incident categories, selective injection reduced prompt token consumption from 871 tokens to an average of 133 tokens—a 28.9% efficiency improvement over standard glob-scoped rules.'
+    ]
+  },
+  {
+    slug: 'automating-regression-memory-git-harvest-ci',
+    date: 'NOV 2026',
+    readTime: '6 MIN READ',
+    title: 'Automating Regression Memory: From Git Blame to AST Guardrails',
+    excerpt: 'Why manual documentation fails in fast-moving teams, and how git-scars harvest mines historical bug fixes into reviewable drafts.',
+    body: [
+      'The hardest part of failure memory is capture discipline. Engineers under pressure to restore production rarely write post-mortems in the exact schema needed by AI coding assistants.',
+      'GitScars bridges this gap with git-scars harvest. By walking Git history, it identifies past bug-fixing commits and extracts candidate failure memories automatically using built-in quality heuristics.',
+      'To prevent human review fatigue and noise, harvest applies three strict quality filters: a diff-size cap (ignoring commits touching > 5 files to filter out mass refactors), a mandatory co-located test requirement, and a 1-10 confidence score. Only high-confidence fixes (score >= 7) become reviewable drafts.',
+      'Combined with git-scars check --format sarif in GitHub Actions, anchor drift and regression guardrails surface as native pull request annotations directly on changed code lines.'
+    ]
+  },
+  {
     slug: 'the-myth-of-monolithic-agents-md',
     date: 'OCT 2026',
     readTime: '4 MIN READ',
@@ -294,7 +320,7 @@ export default function App() {
                 &larr; return to specification
               </button>
               <span className="font-mono text-xs text-[#8c8880]">
-                3 essays published
+                {BLOG_POSTS.length} essays published
               </span>
             </div>
           </div>

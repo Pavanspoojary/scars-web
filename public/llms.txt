@@ -83,6 +83,19 @@ lifecycle:
 ---
 ```
 
+## Published Technical Essays
+
+- **Prompt Budgets: Scaling Agent Retrieval from 871 to 133 Tokens** (https://pavanspoojary.github.io/scars-web/blog)
+  Analyzes how multi-signal anchor scoring (files, symbols, tests, errors) and hard token caps eliminate attention dilution in Claude Code, Cursor, and Windsurf.
+- **Automating Regression Memory: From Git Blame to AST Guardrails** (https://pavanspoojary.github.io/scars-web/blog)
+  Explains how `git-scars harvest` walks commit history to extract bug fixes with diff-size caps, co-located test filters, and confidence scores >= 7.
+- **The Myth of the Monolithic AGENTS.md** (https://pavanspoojary.github.io/scars-web/blog)
+  Demonstrates why flat instruction files fail during code moves (0% drift detection) and waste prompt tokens on unrelated subsystems.
+- **Why Vector Memory Hallucinates Without AST Proof** (https://pavanspoojary.github.io/scars-web/blog)
+  Walks through VibeMemBench (arXiv:2609.23570) and MemSecBench (arXiv:2607.27080) to show why embedding similarity produces false-positive code memories.
+- **The Fail-to-Pass Verification Invariant** (https://pavanspoojary.github.io/scars-web/blog)
+  Details double-sided worktree verification where tests must fail on the parent base commit and pass on the current tree before activation.
+
 ## Quick Installation
 
 ```bash

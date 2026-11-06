@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitScars Field Notes</title>
+    <link>https://pavanspoojary.github.io/scars-web/blog</link>
+    <description>Essays on software regressions, attention budgets in AI coding assistants, and the architecture of deterministic failure memory.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 06 Nov 2026 09:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pavanspoojary.github.io/scars-web/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Prompt Budgets: Scaling Agent Retrieval from 871 to 133 Tokens</title>
+      <link>https://pavanspoojary.github.io/scars-web/blog#prompt-budgets-scaling-agent-retrieval</link>
+      <guid>https://pavanspoojary.github.io/scars-web/blog#prompt-budgets-scaling-agent-retrieval</guid>
+      <pubDate>Fri, 06 Nov 2026 08:00:00 +0000</pubDate>
+      <description>How multi-signal anchor scoring and hard token budget caps eliminate attention dilution in Claude Code, Cursor, and Windsurf.</description>
+    </item>
+
+    <item>
+      <title>Automating Regression Memory: From Git Blame to AST Guardrails</title>
+      <link>https://pavanspoojary.github.io/scars-web/blog#automating-regression-memory-git-harvest-ci</link>
+      <guid>https://pavanspoojary.github.io/scars-web/blog#automating-regression-memory-git-harvest-ci</guid>
+      <pubDate>Wed, 04 Nov 2026 08:00:00 +0000</pubDate>
+      <description>Why manual documentation fails in fast-moving teams, and how git-scars harvest mines historical bug fixes into reviewable drafts.</description>
+    </item>
+
+    <item>
+      <title>The Myth of the Monolithic AGENTS.md</title>
+      <link>https://pavanspoojary.github.io/scars-web/blog#the-myth-of-monolithic-agents-md</link>
+      <guid>https://pavanspoojary.github.io/scars-web/blog#the-myth-of-monolithic-agents-md</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0000</pubDate>
+      <description>Why stuffing hundreds of rules into global prompt files dilutes model attention and provides zero protection when code refactors.</description>
+    </item>
+
+    <item>
+      <title>Why Vector Memory Hallucinates Without AST Proof</title>
+      <link>https://pavanspoojary.github.io/scars-web/blog#why-vector-memory-hallucinates-without-ast-proof</link>
+      <guid>https://pavanspoojary.github.io/scars-web/blog#why-vector-memory-hallucinates-without-ast-proof</guid>
+      <pubDate>Tue, 15 Sep 2026 08:00:00 +0000</pubDate>
+      <description>Semantic similarity search is fundamentally the wrong paradigm for regression prevention in production codebases.</description>
+    </item>
+
+    <item>
+      <title>The Fail-to-Pass Verification Invariant</title>
+      <link>https://pavanspoojary.github.io/scars-web/blog#the-fail-to-pass-verification-invariant</link>
+      <guid>https://pavanspoojary.github.io/scars-web/blog#the-fail-to-pass-verification-invariant</guid>
+      <pubDate>Sat, 15 Aug 2026 08:00:00 +0000</pubDate>
+      <description>Why unverified failure advice is toxic to codebases, and how scrubbed test environments guarantee reproduction.</description>
+    </item>
+  </channel>
+</rss>
